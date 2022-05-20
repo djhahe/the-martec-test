@@ -1,62 +1,69 @@
 import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import {
+  Route,
+  Routes,
+  BrowserRouter,
+} from 'react-router-dom';
+import Login from './pages/Login';
+import Registration from './pages/Registration';
+import Dashboard from './pages/Dashboard';
+import Layout from './components/layout/Layout';
+import WithAccount from './components/auth/WithAccount';
 
-function App() {
+const routesConfig = {
+  authRoutes: [
+    {
+      name: 'Home',
+      route: '/',
+      component: Dashboard,
+    },
+  ],
+  publicRoutes: [
+    {
+      name: 'Registration',
+      route: '/registration',
+      component: Registration,
+    },
+    {
+      name: 'Login',
+      route: '/login',
+      component: Login,
+    },
+  ],
+};
+
+const getRoutes = (routes) => {
+  return routes.map((route) => {
+    const Component = route.component;
+    return (
+      <Route
+        key={`route_${route.name}`}
+        exact
+        path={route.route}
+        element={<Component />}
+      />
+    );
+  });
+};
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img
-          src={logo}
-          className="App-logo w-[100px]"
-          alt="logo"
-        />
-        <Counter />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route
+          element={
+            <WithAccount>
+              <Layout />
+            </WithAccount>
+          }
+        >
+          {getRoutes(routesConfig.authRoutes)}
+        </Route>
+        <Route>
+          {getRoutes(routesConfig.publicRoutes)}
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
-}
-
+};
 export default App;
