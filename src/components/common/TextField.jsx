@@ -7,13 +7,18 @@ const TextField = (props) => {
     value,
     onChange,
     className,
+    error,
+    required,
     ...restProps
   } = props;
   return (
     <div className={className}>
       {label && (
         <div className="text-xs font-medium mb-1">
-          {label}
+          {label}{' '}
+          {required && (
+            <span className="text-red-800 text-xs">*</span>
+          )}
         </div>
       )}
       <div className="py-2 px-3 border rounded-lg">
@@ -25,6 +30,11 @@ const TextField = (props) => {
           {...restProps}
         />
       </div>
+      {error && (
+        <div className="text-red-800 mt-1 text-xs w-[350px]">
+          {error}
+        </div>
+      )}
     </div>
   );
 };
