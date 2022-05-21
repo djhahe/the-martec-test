@@ -5,7 +5,7 @@ import RepoList from '../components/reposList/RepoList';
 
 const Dashboard = () => {
   return (
-    <div className="my-8 mx-6">
+    <>
       <div className="text-2xl font-semibold">
         Github Repos
       </div>
@@ -22,7 +22,7 @@ const Dashboard = () => {
       <div className="mt-4">
         <RepoList />
       </div>
-    </div>
+    </>
   );
 };
 

@@ -14,14 +14,20 @@ const Login = () => {
       <TextField
         label="Email"
         className="mt-10"
-        placeHolder="Email"
+        placeholder="Email"
       />
       <TextField
         label="Password"
         type="password"
         className="mt-10"
-        placeHolder="Password"
+        placeholder="Password"
       />
+      <div className="text-sm text-grey-700 mt-2">
+        Do not have account yet ?{' '}
+        <a href="/registration" className="text-primary">
+          Register
+        </a>
+      </div>
       <Button label="Login" className="mt-10 w-[360px]" />
     </div>
   );

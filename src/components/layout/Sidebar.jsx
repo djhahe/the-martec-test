@@ -1,6 +1,12 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useUser } from '../hooks/useUser';
 
 const Sidebar = () => {
+  const navigate = useNavigate();
+  const { doLogOut, user } = useUser();
+  const { firstName, lastName, email } = user;
+
   return (
     <div className="sidebar w-[320px] min-w-fit relative bg-background">
       <div className="logo items-center flex pl-7 py-4 h-[73px] border-b cursor-pointer">
@@ -26,11 +32,18 @@ const Sidebar = () => {
         />
         <div>
           <div className="font-semibold text-base">
-            Kien Nguyen
+            {firstName || lastName
+              ? `${firstName} ${lastName}`
+              : email}
           </div>
           <div className="text-xs text-grey-600">
-            <span className="mr-3">Edit</span>
-            <span>Sign out</span>
+            <span
+              className="mr-3"
+              onClick={() => navigate('/userDetails')}
+            >
+              Edit
+            </span>
+            <span onClick={doLogOut}>Sign out</span>
           </div>
         </div>
       </div>

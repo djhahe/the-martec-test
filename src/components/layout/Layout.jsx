@@ -9,7 +9,7 @@ const Layout = () => {
       <Sidebar />
       <div className="flex flex-col grow">
         <Header />
-        <div className="main-container grow">
+        <div className="main-container grow my-8 mx-6">
           <Outlet />
         </div>
       </div>

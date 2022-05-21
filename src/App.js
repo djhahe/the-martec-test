@@ -7,8 +7,9 @@ import {
 import Login from './pages/Login';
 import Registration from './pages/Registration';
 import Dashboard from './pages/Dashboard';
+import UserDetail from './pages/UserDetail';
 import Layout from './components/layout/Layout';
-import WithAccount from './components/auth/WithAccount';
+import WithUser from './components/auth/WithUser';
 
 const routesConfig = {
   authRoutes: [
@@ -16,6 +17,11 @@ const routesConfig = {
       name: 'Home',
       route: '/',
       component: Dashboard,
+    },
+    {
+      name: 'User Details',
+      route: '/userDetails',
+      component: UserDetail,
     },
   ],
   publicRoutes: [
@@ -52,9 +58,9 @@ const App = () => {
       <Routes>
         <Route
           element={
-            <WithAccount>
+            <WithUser>
               <Layout />
-            </WithAccount>
+            </WithUser>
           }
         >
           {getRoutes(routesConfig.authRoutes)}
