@@ -52,5 +52,15 @@
     "eslint-plugin-react-hooks": "^4.3.0",
     "postcss": "^8.4.14",
     "tailwindcss": "^3.0.24"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,ts,tsx}",
+      "!<rootDir>/node_modules/"
+    ],
+    "resetMocks": false,
+    "transformIgnorePatterns": [
+      "<rootDir>/node_modules/(?!lodash-es)"
+    ]
   }
 }

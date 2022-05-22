@@ -16,7 +16,7 @@ const passwordRegex =
  * @returns error
  **/
 
-const validateEmail = (email, currentEmail) => {
+export const validateEmail = (email, currentEmail) => {
   let error = '';
   if (!email) {
     error = 'Email is required';
@@ -40,7 +40,7 @@ const validateEmail = (email, currentEmail) => {
  * @param password - The password to validate.
  * @returns the error message if the password does not meet the requirements.
  */
-const validatePassword = (password) => {
+export const validatePassword = (password) => {
   let error = '';
   if (!password) {
     error = 'Password is required';
@@ -53,7 +53,12 @@ const validatePassword = (password) => {
   return error;
 };
 
-const validateFirstName = (firstName) => {
+/**
+ * If the firstName is truthy and longer than 20 characters, return an error message.
+ * @param firstName - The first name of the user
+ * @returns The function validateFirstName is being returned.
+ */
+export const validateFirstName = (firstName) => {
   let error = '';
   if (firstName && firstName.length > 20) {
     error = 'First name must be less than 20 chars';
@@ -61,7 +66,12 @@ const validateFirstName = (firstName) => {
   return error;
 };
 
-const validateLastName = (lastName) => {
+/**
+ * If the last name is longer than 20 characters, return an error message.
+ * @param lastName - The last name to validate
+ * @returns The error message if the last name is greater than 20 characters.
+ */
+export const validateLastName = (lastName) => {
   let error = '';
   if (lastName && lastName.length > 20) {
     error = 'Last name must be less than 20 chars';
@@ -103,6 +113,11 @@ export const registerFormValidation = ({
   return errors;
 };
 
+/**
+ * It returns an object with errors if the firstName, lastName, or email fields are invalid, otherwise
+ * it returns an empty object
+ * @returns An object with the keys of firstName, lastName, and email.
+ */
 export const updateInfoFormValidation = ({
   firstName,
   lastName,
@@ -125,6 +140,10 @@ export const updateInfoFormValidation = ({
   return errors;
 };
 
+/**
+ * It validates the password and confirmPassword fields of the updatePasswordForm
+ * @returns An object with two properties: password and confirmPassword.
+ */
 export const updatePasswordFormValidation = ({
   password,
   confirmPassword,

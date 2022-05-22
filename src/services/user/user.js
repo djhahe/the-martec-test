@@ -8,7 +8,7 @@ import {
   USER_STORAGE_KEY,
 } from '../../constant';
 
-const getUsers = () => {
+export const getUsers = () => {
   return getLocalStorageValue(
     LOCAL_STORAGE_KEY,
     `${USER_STORAGE_KEY}`,
@@ -20,7 +20,7 @@ const getUsers = () => {
  * @param email - The email of the user you want to retrieve.
  * @returns The value of the key `.` in the local storage.
  */
-const getUser = (email) => {
+export const getUser = (email) => {
   const users = getUsers();
   return (
     users.length &&
@@ -68,13 +68,17 @@ const createUser = (userInfo) => {
   const encryptedPass = CryptoJs.MD5(
     userInfo.password,
   ).toString();
+  const updateUserInfo = {
+    ...userInfo,
+    password: encryptedPass,
+  };
   setLocalStorageValue(
     LOCAL_STORAGE_KEY,
     USER_STORAGE_KEY,
-    { ...userInfo, password: encryptedPass },
+    updateUserInfo,
     'push',
   );
-  return userInfo;
+  return updateUserInfo;
 };
 
 /**
