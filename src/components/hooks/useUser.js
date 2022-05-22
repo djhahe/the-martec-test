@@ -13,7 +13,7 @@ export const useUser = () => {
   const navigate = useNavigate();
 
   const createUser = (userInfo) => {
-    UserService.creatUser(userInfo);
+    UserService.createUser(userInfo);
     dispatch(setUser(userInfo));
   };
 
@@ -22,11 +22,23 @@ export const useUser = () => {
     dispatch(setUser(userInfo));
   };
 
+  const updatePassword = (
+    email,
+    password,
+    updatePassword,
+  ) => {
+    UserService.updatePassword(
+      email,
+      password,
+      updatePassword,
+    );
+  };
+
   const doLogOut = () => {
     dispatch(logOut());
   };
 
-  const doLogin = async (email, password) => {
+  const doLogin = (email, password) => {
     const user = UserService.login(email, password);
     dispatch(setUser(user));
     navigate('/');
@@ -38,5 +50,6 @@ export const useUser = () => {
     doLogOut,
     doLogin,
     updateUser,
+    updatePassword,
   };
 };

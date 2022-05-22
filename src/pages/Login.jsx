@@ -8,7 +8,6 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  // const navigate = useNavigate();
   const { doLogin } = useUser();
 
   const onLogin = () => {
@@ -31,7 +30,10 @@ const Login = () => {
         className="mt-10"
         placeholder="Email"
         value={email}
-        onChange={setEmail}
+        onChange={(value) => {
+          setEmail(value);
+          setError('');
+        }}
       />
       <TextField
         label="Password"
@@ -39,7 +41,10 @@ const Login = () => {
         className="mt-10"
         placeholder="Password"
         value={password}
-        onChange={setPassword}
+        onChange={(value) => {
+          setPassword(value);
+          setError('');
+        }}
       />
       {error && (
         <div className="text-red-800 mt-3 text-xs w-[350px]">

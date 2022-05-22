@@ -1,10 +1,12 @@
 import React, { useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from '../components/common/Button';
 import TextField from '../components/common/TextField';
 import { useUser } from '../components/hooks/useUser';
 import { updateInfoFormValidation } from '../helper/validation';
 
 const UpdateInfo = () => {
+  const navigate = useNavigate();
   const { user, updateUser } = useUser();
   const [firstName, setFirstName] = useState(
     user.firstName,
@@ -32,6 +34,7 @@ const UpdateInfo = () => {
         lastName,
         email,
       });
+      navigate('/userDetails');
     } catch (error) {
       setError(error.message);
     }
@@ -44,18 +47,21 @@ const UpdateInfo = () => {
         value={firstName}
         onChange={setFirstName}
         error={errors.firstName}
+        className="mt-5"
       />
       <TextField
         label="Last name"
         value={lastName}
         onChange={setLastName}
         error={errors.lastName}
+        className="mt-5"
       />
       <TextField
         label="Email"
         value={email}
         onChange={setEmail}
         error={errors.email}
+        className="mt-5"
       />
       {error && (
         <div className="text-red-800 mt-3 text-xs w-[350px]">
@@ -63,8 +69,8 @@ const UpdateInfo = () => {
         </div>
       )}
       <Button
-        label="Update Info"
-        className="mt-3"
+        label="Update"
+        className="mt-5"
         onClick={onUpdateInfo}
         disabled={Object.keys(errors).length}
       />

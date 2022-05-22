@@ -1,4 +1,5 @@
 import React from 'react';
+import { getClasses } from '../../helper/classes';
 
 const TextField = (props) => {
   const {
@@ -9,8 +10,12 @@ const TextField = (props) => {
     className,
     error,
     required,
+    width = 350,
     ...restProps
   } = props;
+  const classes = getClasses({
+    [`w-[${width + 10}px]`]: true,
+  });
   return (
     <div className={className}>
       {label && (
@@ -21,12 +26,14 @@ const TextField = (props) => {
           )}
         </div>
       )}
-      <div className="py-2 px-3 border rounded-lg">
+      <div
+        className={`py-2 px-2 border rounded-lg ${classes}`}
+      >
         <input
           type={type}
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className="w-[350px] outline-0 text-sm"
+          className={`w-[${width}px] outline-0 text-sm`}
           {...restProps}
         />
       </div>

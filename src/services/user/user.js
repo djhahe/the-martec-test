@@ -45,13 +45,15 @@ const updateUser = (email, userInfo) => {
   const userIndex = users.findIndex(
     (u) => u.email === email,
   );
+
   if (userIndex < 0) {
     throw Error('User does not exist');
   }
+  const user = users[userIndex];
   setLocalStorageValue(
     LOCAL_STORAGE_KEY,
     `${USER_STORAGE_KEY}[${userIndex}]`,
-    userInfo,
+    { ...user, ...userInfo },
     'set',
   );
   return userInfo;
@@ -79,10 +81,20 @@ const login = (email, password) => {
   return user;
 };
 
+const updatePassword = (
+  email,
+  password,
+  updatePassword,
+) => {
+  login(email, password);
+  updateUser(email, { password: updatePassword });
+};
+
 export default {
   login,
   createUser,
   updateUser,
   getUser,
   getUsers,
+  updatePassword,
 };

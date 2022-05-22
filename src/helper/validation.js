@@ -124,3 +124,18 @@ export const updateInfoFormValidation = ({
   }
   return errors;
 };
+
+export const updatePasswordFormValidation = ({
+  password,
+  confirmPassword,
+}) => {
+  let errors = {};
+  const passwordError = validatePassword(password);
+  if (passwordError) {
+    errors.password = passwordError;
+  }
+  if (password !== confirmPassword) {
+    errors.confirmPassword = 'Passwords are not matched';
+  }
+  return errors;
+};
