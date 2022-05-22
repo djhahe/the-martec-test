@@ -1,21 +1,7 @@
 import React from 'react';
 import Button from '../common/Button';
-const MOCK_REPOS = [
-  {
-    name: 'CKMnemonic',
-    url: 'https://api.github.com/repos/djhahe/CKMnemonic',
-  },
-  {
-    name: 'CKMnemonic1',
-    url: 'https://api.github.com/repos/djhahe/CKMnemonic',
-  },
-  {
-    name: 'CKMnemonic2',
-    url: 'https://api.github.com/repos/djhahe/CKMnemonic',
-  },
-];
 
-const RepoList = () => {
+const RepoList = ({ repos = [] }) => {
   return (
     <div>
       <div className="bg-background rounded-lg text-grey-700 flex py-3 px-2">
@@ -24,7 +10,7 @@ const RepoList = () => {
         <div />
       </div>
       <div>
-        {MOCK_REPOS.map(({ name, url }) => {
+        {repos.map(({ name, url }) => {
           return (
             <div
               key={name}
