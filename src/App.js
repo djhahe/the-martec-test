@@ -10,6 +10,8 @@ import Dashboard from './pages/Dashboard';
 import UserDetail from './pages/UserDetail';
 import Layout from './components/layout/Layout';
 import WithUser from './components/auth/WithUser';
+import UpdatePassword from './pages/UpdatePassword';
+import UpdateInfo from './pages/UpdateInfo';
 
 const routesConfig = {
   authRoutes: [
@@ -22,6 +24,16 @@ const routesConfig = {
       name: 'User Details',
       route: '/userDetails',
       component: UserDetail,
+    },
+    {
+      name: 'Update Password',
+      route: '/updatePassword',
+      component: UpdatePassword,
+    },
+    {
+      name: 'Update Info',
+      route: '/updateInfo',
+      component: UpdateInfo,
     },
   ],
   publicRoutes: [

@@ -1,4 +1,4 @@
-import { getUser } from '../services/user/user';
+import UserService from '../services/user/user';
 
 /* It's a regular expression that checks if the email is valid. */
 const emailRegex =
@@ -16,7 +16,7 @@ const passwordRegex =
  * @returns error
  **/
 
-const validateEmail = (email) => {
+const validateEmail = (email, currentEmail) => {
   let error = '';
   if (!email) {
     error = 'Email is required';
@@ -24,7 +24,11 @@ const validateEmail = (email) => {
   if (!error && !emailRegex.test(email)) {
     error = 'Invalid email';
   }
-  if (!error && getUser(email)) {
+  if (
+    !error &&
+    UserService.getUser(email) &&
+    email !== currentEmail
+  ) {
     error = 'Email is already exist';
   }
   return error;
@@ -49,6 +53,22 @@ const validatePassword = (password) => {
   return error;
 };
 
+const validateFirstName = (firstName) => {
+  let error = '';
+  if (firstName && firstName.length > 20) {
+    error = 'First name must be less than 20 chars';
+  }
+  return error;
+};
+
+const validateLastName = (lastName) => {
+  let error = '';
+  if (lastName && lastName.length > 20) {
+    error = 'Last name must be less than 20 chars';
+  }
+  return error;
+};
+
 /**
  * It validates the form fields and returns an object with errors
  * @returns An object with the keys of firstName, lastName, email, password, and confirmPassword.
@@ -61,13 +81,13 @@ export const registerFormValidation = ({
   confirmPassword,
 }) => {
   let errors = {};
-  if (firstName && firstName.length > 20) {
-    errors.firstName =
-      'First name must be less than 20 chars';
+  const firstNameError = validateFirstName(firstName);
+  if (firstNameError) {
+    errors.firstName = firstNameError;
   }
-  if (lastName && lastName.length > 20) {
-    errors.lastName =
-      'First name must be less than 20 chars';
+  const lastNameError = validateLastName(lastName);
+  if (lastNameError) {
+    errors.lastName = lastNameError;
   }
   const emailError = validateEmail(email);
   if (emailError) {
@@ -79,6 +99,28 @@ export const registerFormValidation = ({
   }
   if (password !== confirmPassword) {
     errors.confirmPassword = 'Passwords are not matched';
+  }
+  return errors;
+};
+
+export const updateInfoFormValidation = ({
+  firstName,
+  lastName,
+  email,
+  currentEmail,
+}) => {
+  let errors = {};
+  const firstNameError = validateFirstName(firstName);
+  if (firstNameError) {
+    errors.firstName = firstNameError;
+  }
+  const lastNameError = validateLastName(lastName);
+  if (lastNameError) {
+    errors.lastName = lastNameError;
+  }
+  const emailError = validateEmail(email, currentEmail);
+  if (emailError) {
+    errors.email = emailError;
   }
   return errors;
 };

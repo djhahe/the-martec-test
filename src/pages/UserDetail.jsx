@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useUser } from '../components/hooks/useUser';
 
 const DETAILS_MAPPING = [
@@ -35,10 +36,10 @@ const UserDetail = () => {
         );
       })}
       <div className="mt-4 text-primary">
-        <a className="mr-4" href="#">
+        <Link className="mr-4" to="/updateInfo">
           Update Info
-        </a>
-        <a href="#">Update password</a>
+        </Link>
+        <Link to="/updatePassword">Update password</Link>
       </div>
     </>
   );

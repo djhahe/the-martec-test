@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import TextField from '../components/common/TextField';
 import Button from '../components/common/Button';
 import { registerFormValidation } from '../helper/validation';
@@ -100,9 +100,9 @@ const Registration = () => {
       />
       <div className="text-sm text-grey-700 mt-2">
         Already have account ?{' '}
-        <a href="/login" className="text-primary">
+        <Link to="/login" className="text-primary">
           Login
-        </a>
+        </Link>
       </div>
       <Button
         label="Register"

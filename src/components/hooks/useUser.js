@@ -5,7 +5,7 @@ import {
   logOut,
   setUser,
 } from '../../app/userSlice';
-import { creatUser, login } from '../../services/user/user';
+import UserService from '../../services/user/user';
 
 export const useUser = () => {
   const dispatch = useDispatch();
@@ -13,7 +13,12 @@ export const useUser = () => {
   const navigate = useNavigate();
 
   const createUser = (userInfo) => {
-    creatUser(userInfo);
+    UserService.creatUser(userInfo);
+    dispatch(setUser(userInfo));
+  };
+
+  const updateUser = (email, userInfo) => {
+    UserService.updateUser(email, userInfo);
     dispatch(setUser(userInfo));
   };
 
@@ -22,10 +27,16 @@ export const useUser = () => {
   };
 
   const doLogin = async (email, password) => {
-    const user = login(email, password);
+    const user = UserService.login(email, password);
     dispatch(setUser(user));
     navigate('/');
   };
 
-  return { user, createUser, doLogOut, doLogin };
+  return {
+    user,
+    createUser,
+    doLogOut,
+    doLogin,
+    updateUser,
+  };
 };

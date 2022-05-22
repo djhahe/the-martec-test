@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import TextField from '../components/common/TextField';
 import Button from '../components/common/Button';
 import { useUser } from '../components/hooks/useUser';
@@ -47,9 +48,9 @@ const Login = () => {
       )}
       <div className="text-sm text-grey-700 mt-2">
         Do not have account yet ?{' '}
-        <a href="/registration" className="text-primary">
+        <Link to="/registration" className="text-primary">
           Register
-        </a>
+        </Link>
       </div>
       <Button
         label="Login"
