@@ -9,7 +9,10 @@ const Sidebar = () => {
 
   return (
     <div className="sidebar w-[320px] min-w-fit relative bg-background">
-      <div className="logo items-center flex pl-7 py-4 h-[73px] border-b cursor-pointer">
+      <div
+        className="logo items-center flex pl-7 py-4 h-[73px] border-b cursor-pointer"
+        onClick={() => navigate('/')}
+      >
         <span className="text-primary font-bold text-2xl">
           The Martec
         </span>
@@ -21,7 +24,10 @@ const Sidebar = () => {
             'linear-gradient(270deg, #E8F1FF 0%, rgba(233, 242, 255, 0) 100%)',
         }}
       >
-        <div className="font-semibold text-base text-primary ">
+        <div
+          className="font-semibold text-base text-primary"
+          onClick={() => navigate('/')}
+        >
           Dashboard
         </div>
       </div>
@@ -38,12 +44,17 @@ const Sidebar = () => {
           </div>
           <div className="text-xs text-grey-600">
             <span
-              className="mr-3"
+              className="mr-3 cursor-pointer"
               onClick={() => navigate('/userDetails')}
             >
               Edit
             </span>
-            <span onClick={doLogOut}>Sign out</span>
+            <span
+              className="cursor-pointer"
+              onClick={doLogOut}
+            >
+              Sign out
+            </span>
           </div>
         </div>
       </div>

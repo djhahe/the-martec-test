@@ -9,29 +9,38 @@ import _get from 'lodash-es/get';
  * @param {string} action push or set
  * @returns {object} new storage value
  */
-export const setLocalStorageValue = (key, path, value, action) => {
-	try {
-		const item = JSON.parse(localStorage.getItem(key)) || {};
-		let updatedItem;
-		switch (action) {
-			case 'set':
-				updatedItem = _set(item, path, value);
-				break;
-			case 'push': {
-				const currentValue = _get(item, path, []);
-				updatedItem = _set(item, path, [...new Set([...currentValue, value])]); // unique array
-				break;
-			}
-			default:
-				updatedItem = item;
-				break;
-		}
+export const setLocalStorageValue = (
+  key,
+  path,
+  value,
+  action,
+) => {
+  try {
+    const item =
+      JSON.parse(localStorage.getItem(key)) || {};
 
-		localStorage.setItem(key, JSON.stringify(updatedItem));
-		return updatedItem;
-	} catch (error) {
-		return undefined;
-	}
+    let updatedItem;
+    switch (action) {
+      case 'set':
+        updatedItem = _set(item, path, value);
+        break;
+      case 'push': {
+        const currentValue = _get(item, path, []);
+        updatedItem = _set(item, path, [
+          ...new Set([...currentValue, value]),
+        ]); // unique array
+        break;
+      }
+      default:
+        updatedItem = item;
+        break;
+    }
+
+    localStorage.setItem(key, JSON.stringify(updatedItem));
+    return updatedItem;
+  } catch (error) {
+    return undefined;
+  }
 };
 
 /**
@@ -40,10 +49,10 @@ export const setLocalStorageValue = (key, path, value, action) => {
  * @param {string} path Object path
  */
 export const getLocalStorageValue = (key, path) => {
-	try {
-		const item = JSON.parse(localStorage.getItem(key));
-		return _get(item, path);
-	} catch (error) {
-		return undefined;
-	}
+  try {
+    const item = JSON.parse(localStorage.getItem(key));
+    return _get(item, path);
+  } catch (error) {
+    return undefined;
+  }
 };

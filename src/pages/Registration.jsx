@@ -32,11 +32,16 @@ const Registration = () => {
     confirmPassword,
   ]);
 
-  const onRegister = () => {
+  const onRegister = async () => {
     if (Object.keys(errors).length) {
       return;
     }
-    createUser({ firstName, lastName, email, password });
+    await createUser({
+      firstName,
+      lastName,
+      email,
+      password,
+    });
     navigate('/');
   };
 
