@@ -1,42 +1,58 @@
-/**
- * It returns true if the email address is valid, and false if it's not
- * @param mail - The email address to validate.
- * @returns A boolean value.
+import { getUser } from '../services/user/user';
+
+/* It's a regular expression that checks if the email is valid. */
+const emailRegex =
+  /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+/* It's a regular expression that checks if the password is valid.
+ * The password must be at least 12 characters long and contain at least one lowercase letter,
+ * one uppercase letter, one numeric digit, and one special character.
  */
-const validateEmail = (mail) => {
-  if (
-    /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(mail)
-  ) {
-    return true;
+const passwordRegex =
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}$/;
+
+/**
+ * It checks if the email is valid and if it's already exist
+ * @param email - The email to validate.
+ * @returns error
+ **/
+
+const validateEmail = (email) => {
+  let error = '';
+  if (!email) {
+    error = 'Email is required';
   }
-  return false;
+  if (!error && !emailRegex.test(email)) {
+    error = 'Invalid email';
+  }
+  if (!error && getUser(email)) {
+    error = 'Email is already exist';
+  }
+  return error;
 };
 
 /**
- * "The password must be at least 12 characters long and contain at least one lowercase letter, one
- * uppercase letter, one numeric digit, and one special character."
- *
- * The password must contain at least one of each of the following:
- *
- * lowercase letter
- * uppercase letter
- * numeric digit
- * special character
- * The password must not contain any spaces
- * @param password - the password to validate
- * @returns A boolean value.
+ * If the password is not empty and it matches the passwordRegex, then return an empty string.
+ * Otherwise, return an error message
+ * @param password - The password to validate.
+ * @returns the error message if the password does not meet the requirements.
  */
 const validatePassword = (password) => {
-  if (
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}$/.test(
-      password,
-    )
-  ) {
-    return true;
+  let error = '';
+  if (!password) {
+    error = 'Password is required';
   }
-  return false;
+  if (!error && !passwordRegex.test(password)) {
+    error =
+      'The password must be at least 12 characters long and contain at least one lowercase letter, one uppercase letter, one numeric digit, and one special character.';
+  }
+
+  return error;
 };
 
+/**
+ * It validates the form fields and returns an object with errors
+ * @returns An object with the keys of firstName, lastName, email, password, and confirmPassword.
+ */
 export const registerFormValidation = ({
   firstName,
   lastName,
@@ -53,18 +69,13 @@ export const registerFormValidation = ({
     errors.lastName =
       'First name must be less than 20 chars';
   }
-  if (!email) {
-    errors.email = 'Email is required';
+  const emailError = validateEmail(email);
+  if (emailError) {
+    errors.email = emailError;
   }
-  if (!errors.email && !validateEmail(email)) {
-    errors.email = 'Invalid email';
-  }
-  if (!password) {
-    errors.password = 'Password is required';
-  }
-  if (!errors.password && !validatePassword(password)) {
-    errors.password =
-      'The password must be at least 12 characters long and contain at least one lowercase letter, one uppercase letter, one numeric digit, and one special character.';
+  const passwordError = validatePassword(password);
+  if (passwordError) {
+    errors.password = passwordError;
   }
   if (password !== confirmPassword) {
     errors.confirmPassword = 'Passwords are not matched';
