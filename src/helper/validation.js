@@ -158,3 +158,13 @@ export const updatePasswordFormValidation = ({
   }
   return errors;
 };
+
+export const loginFormValidation = ({ email }) => {
+  let errors = {};
+
+  if (email && !emailRegex.test(email)) {
+    errors.email = 'Invalid email';
+  }
+
+  return errors;
+};
