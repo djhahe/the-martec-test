@@ -4,6 +4,7 @@ import TextField from '../components/common/TextField';
 import Button from '../components/common/Button';
 import { registerFormValidation } from '../helper/validation';
 import { useUser } from '../components/hooks/useUser';
+import Modal from '../components/common/Modal';
 
 const Registration = () => {
   // Hooks
@@ -13,6 +14,7 @@ const Registration = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] =
     useState('');
+  const [showModal, setShowModal] = useState(false);
   const { createUser } = useUser();
   const navigate = useNavigate();
 
@@ -42,6 +44,10 @@ const Registration = () => {
       email,
       password,
     });
+    setShowModal(true);
+  };
+
+  const onConfirmModal = () => {
     navigate('/');
   };
 
@@ -110,6 +116,9 @@ const Registration = () => {
         onClick={onRegister}
         disabled={Object.keys(errors).length}
       />
+      <Modal show={showModal} handleClose={onConfirmModal}>
+        Register successfully
+      </Modal>
     </div>
   );
 };

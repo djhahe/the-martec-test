@@ -5,7 +5,7 @@ module.exports = {
       colors: {
         background: '#f8f8fa',
         primary: '#0766f7',
-        white: '#fffff',
+        white: '#ffffff',
         blue: { 800: '#0766f7' },
         grey: {
           900: '#2b2c45',
@@ -14,6 +14,7 @@ module.exports = {
           500: '#aeb0bd',
           400: '#e2e4e8',
         },
+        backdrop: '#00000099',
       },
     },
   },
