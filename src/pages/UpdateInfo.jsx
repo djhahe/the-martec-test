@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import BackButton from '../components/common/BackButton';
 import Button from '../components/common/Button';
 import TextField from '../components/common/TextField';
 import { useUser } from '../components/hooks/useUser';
@@ -68,12 +69,15 @@ const UpdateInfo = () => {
           {error}
         </div>
       )}
-      <Button
-        label="Update"
-        className="mt-5"
-        onClick={onUpdateInfo}
-        disabled={Object.keys(errors).length}
-      />
+      <div className="flex mt-5">
+        <BackButton />
+        <Button
+          label="Update"
+          className="ml-5"
+          onClick={onUpdateInfo}
+          disabled={Object.keys(errors).length}
+        />
+      </div>
     </div>
   );
 };

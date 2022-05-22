@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
+  isLoadingRepos,
   getGithubRepos,
   fetchGithubRepos,
 } from '../app/githubSlice';
@@ -11,6 +12,7 @@ import RepoList from '../components/reposList/RepoList';
 const Dashboard = () => {
   const dispatch = useDispatch();
   const repos = useSelector(getGithubRepos);
+  const isLoading = useSelector(isLoadingRepos);
   const [searchTerm, setSearchTerm] = useState('');
   const onSearch = () => {
     dispatch(fetchGithubRepos(searchTerm));
@@ -34,10 +36,11 @@ const Dashboard = () => {
           label="Load Repos"
           className="ml-3"
           onClick={onSearch}
+          disabled={isLoading}
         />
       </div>
-      <div className="mt-4">
-        <RepoList repos={repos} />
+      <div className="mt-4 flex-1 overflow-auto flex flex-col">
+        <RepoList repos={repos} isLoading={isLoading} />
       </div>
     </>
   );
