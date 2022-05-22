@@ -31,7 +31,7 @@ const Dashboard = () => {
           onChange={setSearchTerm}
         />
         <Button
-          label="Search"
+          label="Load Repos"
           className="ml-3"
           onClick={onSearch}
         />

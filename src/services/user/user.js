@@ -59,6 +59,11 @@ const updateUser = (email, userInfo) => {
   return userInfo;
 };
 
+/**
+ * It takes a user object, encrypts the password, and then saves the user object to local storage
+ * @param userInfo - The user information object.
+ * @returns The userInfo object is being returned.
+ */
 const createUser = (userInfo) => {
   const encryptedPass = CryptoJs.MD5(
     userInfo.password,
@@ -72,6 +77,13 @@ const createUser = (userInfo) => {
   return userInfo;
 };
 
+/**
+ * "If the user doesn't exist or the password doesn't match, throw an error. Otherwise, return the
+ * user."
+ * @param email - The email address of the user.
+ * @param password - The password that the user entered.
+ * @returns The user object.
+ */
 const login = (email, password) => {
   const user = getUser(email);
   const encryptedPass = CryptoJs.MD5(password).toString();
@@ -81,6 +93,12 @@ const login = (email, password) => {
   return user;
 };
 
+/**
+ * Update the password of a user with a given email address.
+ * @param email - The email of the user to update.
+ * @param password - The current password of the user.
+ * @param updatePassword - The password will be updated.
+ */
 const updatePassword = (
   email,
   password,
