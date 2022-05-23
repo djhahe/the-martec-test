@@ -25,7 +25,7 @@ const RepoList = ({ repos = [], isLoading, isError }) => {
       <div className="flex flex-col mt-2 flex-1 overflow-auto">
         {!isLoading &&
           !isError &&
-          repos.length &&
+          !!repos.length &&
           repos.map(
             ({ name, html_url, id, sharedCount }) => {
               return (
