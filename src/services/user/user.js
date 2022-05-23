@@ -9,9 +9,11 @@ import {
 } from '../../constant';
 
 export const getUsers = () => {
-  return getLocalStorageValue(
-    LOCAL_STORAGE_KEY,
-    `${USER_STORAGE_KEY}`,
+  return (
+    getLocalStorageValue(
+      LOCAL_STORAGE_KEY,
+      `${USER_STORAGE_KEY}`,
+    ) || []
   );
 };
 
