@@ -4,6 +4,7 @@ import {
   isLoadingRepos,
   getGithubRepos,
   fetchGithubRepos,
+  isErrorRepos,
 } from '../app/githubSlice';
 import Button from '../components/common/Button';
 import TextField from '../components/common/TextField';
@@ -13,6 +14,7 @@ const Dashboard = () => {
   const dispatch = useDispatch();
   const repos = useSelector(getGithubRepos);
   const isLoading = useSelector(isLoadingRepos);
+  const isError = useSelector(isErrorRepos);
   const [searchTerm, setSearchTerm] = useState('');
   const onSearch = () => {
     dispatch(fetchGithubRepos(searchTerm));
@@ -24,7 +26,7 @@ const Dashboard = () => {
       </div>
       <div className="mt-8 flex items-center">
         <div className="text-sm">
-          Total <b>{repos.length}</b> repos
+          Total <b>{repos.length || 0}</b> repos
         </div>
         <TextField
           placeholder="Search by username"
@@ -40,7 +42,11 @@ const Dashboard = () => {
         />
       </div>
       <div className="mt-4 flex-1 overflow-auto flex flex-col">
-        <RepoList repos={repos} isLoading={isLoading} />
+        <RepoList
+          repos={repos}
+          isLoading={isLoading}
+          isError={isError}
+        />
       </div>
     </>
   );

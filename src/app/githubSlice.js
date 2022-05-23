@@ -16,10 +16,13 @@ const initialState = {
 export const fetchGithubRepos = createAsyncThunk(
   'github/fetchRepos',
   async (userName) => {
-    const response = await fetchRepos(userName);
+    try {
+      const response = await fetchRepos(userName);
+      return response;
+    } catch (error) {
+      return [];
+    }
     // The value we return becomes the `fulfilled` action payload
-
-    return response;
   },
 );
 
@@ -56,6 +59,13 @@ export const githubSlice = createSlice({
           state.status = 'idle';
           state.repos = action.payload;
         },
+      )
+      .addCase(
+        fetchGithubRepos.rejected,
+        (state, action) => {
+          state.status = 'error';
+          state.error = action.payload;
+        },
       );
   },
 });
@@ -64,8 +74,12 @@ export const { increaseShare } = githubSlice.actions;
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state: RootState) => state.counter.value)`
-export const getGithubRepos = (state) => state.github.repos;
+export const getGithubRepos = (state) =>
+  state.github.repos || [];
 export const isLoadingRepos = (state) =>
   state.github.status === 'loading';
+export const isErrorRepos = (state) => {
+  state.github.status === 'error';
+};
 
 export default githubSlice.reducer;

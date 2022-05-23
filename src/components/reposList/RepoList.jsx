@@ -4,7 +4,7 @@ import { increaseShare } from '../../app/githubSlice';
 import BarLoader from '../common/BarLoader';
 import Button from '../common/Button';
 
-const RepoList = ({ repos = [], isLoading }) => {
+const RepoList = ({ repos = [], isLoading, isError }) => {
   const dispatch = useDispatch();
   const onShare = (id, url) => {
     window.open(
@@ -24,6 +24,8 @@ const RepoList = ({ repos = [], isLoading }) => {
       </div>
       <div className="flex flex-col mt-2 flex-1 overflow-auto">
         {!isLoading &&
+          !isError &&
+          repos.length &&
           repos.map(
             ({ name, html_url, id, sharedCount }) => {
               return (
@@ -49,6 +51,10 @@ const RepoList = ({ repos = [], isLoading }) => {
             },
           )}
         {isLoading && <BarLoader />}
+        {isError ||
+          (!repos.length && (
+            <div>Can not find any repos</div>
+          ))}
       </div>
     </>
   );
